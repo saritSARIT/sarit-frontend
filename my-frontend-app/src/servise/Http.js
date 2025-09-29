@@ -22,3 +22,9 @@ export const addBook = async (book) => {
   }
 };
 
+export const login = async (name, password) => {
+  const response = await axios.post(`${apiUrl}/login`, { name, password });
+  const { token } = response.data;
+  localStorage.setItem("token", token); 
+  return token;
+};

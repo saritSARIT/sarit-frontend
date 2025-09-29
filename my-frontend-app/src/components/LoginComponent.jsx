@@ -10,9 +10,11 @@ function LoginComponent() {
         try {
             setError("");
             const token = await login(name, password);
+             localStorage.setItem("token", token);
             console.log("התחברת בהצלחה. הטוקן שהתקבל:", token);
             setName("");
             setPassword("");
+            // onLogin && onLogin();
         } catch (err) {
             console.error("שגיאת התחברות:", err.response?.data?.error || err.message);
             setName("");

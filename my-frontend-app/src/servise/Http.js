@@ -28,3 +28,16 @@ export const login = async (name, password) => {
   localStorage.setItem("token", token); 
   return token;
 };
+
+export const logout = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    await axios.post(`${apiUrl}/logout`, { token });
+    localStorage.removeItem("token");
+    console.log("התנתקת בהצלחה");
+  } catch (error) {
+    console.error("שגיאת התנתקות:", error.response?.data || error.message);
+  }
+};

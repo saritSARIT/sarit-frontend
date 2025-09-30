@@ -7,8 +7,6 @@ function BookComponents() {
     console.log(" רשימת ספרים:", books);
   };
 
-
-
   const handleAddBook = async () => {
     const books = await getBooks();
     const lastId = books.length > 0 ? books[books.length - 1].id : 0;

@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import { login } from "../servise/Http";
+import { register } from "../servise/Http";
 
-function LoginComponent() {
+function RegisterComponent() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         try {
-            setError("");
-            const token = await login(name, password);
-            localStorage.setItem("token", token);
-            console.log("התחברת בהצלחה. הטוקן שהתקבל:", token);
+            setMessage("");
+            const result = await register(name, password);
+            console.log("הרשמתך בוצעה בהצלחה! כעת תוכל להתחבר.", result);
             setName("");
             setPassword("");
-
         } catch (err) {
-            console.error("שגיאת התחברות:", err.response?.data?.error || err.message);
+            console.log("שגיאת רישום:", err.response?.data?.error || err.message);
             setName("");
             setPassword("");
         }
@@ -24,7 +22,7 @@ function LoginComponent() {
 
     return (
         <div>
-            <h2>התחברות משתמש</h2>
+            <h2>רישום משתמש חדש</h2>
             <input
                 type="text"
                 placeholder="שם משתמש"
@@ -37,10 +35,10 @@ function LoginComponent() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleLogin}>התחבר</button>
-
+            <button onClick={handleRegister}>הרשם</button>
+            {message && <p>{message}</p>}
         </div>
     );
 }
 
-export default LoginComponent;
+export default RegisterComponent;
